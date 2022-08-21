@@ -4,6 +4,7 @@ Vue.createApp({
       todos: []
     };
   },
+
   methods: {
     $_all() {
       const todos = [];
