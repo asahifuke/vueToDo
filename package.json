@@ -1,0 +1,24 @@
+{
+  "name": "vuetodo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "TodoList.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asahifuke/vueToDo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asahifuke/vueToDo/issues"
+  },
+  "homepage": "https://github.com/asahifuke/vueToDo#readme",
+  "devDependencies": {
+    "eslint": "^8.22.0",
+    "eslint-plugin-vue": "^9.3.0"
+  }
+}
