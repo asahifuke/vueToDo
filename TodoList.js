@@ -7,7 +7,6 @@ Vue.createApp({
 
   methods: {
     all() {
-      
       const todos = [];
       for(let i = 0 ; i < localStorage.length ; i++) {
         const key = localStorage.key(i);
@@ -15,8 +14,8 @@ Vue.createApp({
         todo['id'] = key;
         todos.push(todo);
       }
-      return todos;
-
+      this.todos = todos;
+      return true;
     },
 
     $_find(todo) {
@@ -37,7 +36,6 @@ Vue.createApp({
       editingTodo['isEditing'] = true;
       localStorage.setItem(todo.id, JSON.stringify(editingTodo));
       this.all();
-      location.reload();
     },
 
     update(todo) {
