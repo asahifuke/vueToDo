@@ -6,7 +6,8 @@ Vue.createApp({
   },
 
   methods: {
-    $_all() {
+    all() {
+      
       const todos = [];
       for(let i = 0 ; i < localStorage.length ; i++) {
         const key = localStorage.key(i);
@@ -14,7 +15,8 @@ Vue.createApp({
         todo['id'] = key;
         todos.push(todo);
       }
-      this.todos = todos;
+      return todos;
+
     },
 
     $_find(todo) {
@@ -27,14 +29,15 @@ Vue.createApp({
         isEditing: false
       };
       localStorage.setItem(Date.now().toString(36) + Math.random().toString(36),  JSON.stringify(todo));
-      this.$_all();
+      this.all();
     },
 
     edit(todo) {
       const editingTodo = this.$_find(todo);
       editingTodo['isEditing'] = true;
       localStorage.setItem(todo.id, JSON.stringify(editingTodo));
-      this.$_all();
+      this.all();
+      location.reload();
     },
 
     update(todo) {
@@ -42,12 +45,12 @@ Vue.createApp({
       editingTodo['isEditing'] = false;
       editingTodo['title'] = todo.title;
       localStorage.setItem(todo.id, JSON.stringify(editingTodo));
-      this.$_all();
+      this.all();
     },
 
     destroy(todo) {
       localStorage.removeItem(todo.id);
-      this.$_all();
+      this.all();
     },
   
     isEditing(todo) {
