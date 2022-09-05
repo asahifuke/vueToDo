@@ -4,6 +4,9 @@ Vue.createApp({
       todos: []
     };
   },
+  created: function () {
+    this.all();
+  },
 
   methods: {
     all() {
@@ -15,7 +18,6 @@ Vue.createApp({
         todos.push(todo);
       }
       this.todos = todos;
-      return true;
     },
 
     $_find(todo) {

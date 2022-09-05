@@ -10,7 +10,7 @@
   <div id="app">
     <input v-model="title" type="text" required>
     <input v-on:click="create" type="submit" value="追加">
-    <table v-if="all()">      
+    <table>      
       <tr v-for="todo in todos" :key="todo.id">
         <td v-if="isEditing(todo)">
           <input v-model="todo.title" type="text" required />
