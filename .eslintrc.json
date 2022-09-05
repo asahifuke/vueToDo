@@ -5,8 +5,9 @@
         "es2021": true
     },
     "extends": [
-        "eslint:recommended",
-        "plugin:vue/vue3-essential"
+        "plugin:vue/vue3-essential",
+        "standard",
+        "plugin:vue/recommended"
     ],
     "overrides": [
     ],
@@ -16,10 +17,9 @@
     "plugins": [
         "vue"
     ],
+    "rules": {
+    },
     "globals": {
         "Vue": true
-    },
-    "rules": {
-        "semi": [2, "always"]
     }
 }
