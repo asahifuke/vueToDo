@@ -30,6 +30,7 @@ Vue.createApp({
         isEditing: false
       }
       localStorage.setItem(Date.now().toString(36) + Math.random().toString(36), JSON.stringify(todo))
+      this.title = ''
       this.all()
     },
 
