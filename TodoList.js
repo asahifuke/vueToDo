@@ -5,7 +5,7 @@ Vue.createApp({
     }
   },
   created () {
-    this.$_all()
+    this.$_getTodos()
   },
 
   methods: {
@@ -13,28 +13,28 @@ Vue.createApp({
       this.$_createTodo()
       this.$_save()
       this.title = ''
-      this.$_all()
+      this.$_getTodos()
     },
 
     edit (todo) {
       this.$_changeIsEditings(todo)
       this.$_save()
-      this.$_all()
+      this.$_getTodos()
     },
 
     update (todo) {
       this.$_changeIsEditings(todo)
       this.$_save()
-      this.$_all()
+      this.$_getTodos()
     },
 
     destroy (todo) {
       this.$_filterTodo(todo)
       this.$_save()
-      this.$_all()
+      this.$_getTodos()
     },
 
-    $_all () {
+    $_getTodos () {
       this.todos = JSON.parse(localStorage.getItem('todos'))
     },
 

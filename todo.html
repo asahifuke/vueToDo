@@ -4,32 +4,32 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>TodoList</title>
 </head>
 <body>
   <div id="app">
     <input v-model="title" type="text" required>
-    <input v-on:click="create" type="submit" value="追加">
+    <input @click="create" type="submit" value="追加">
     <table>      
       <tr v-for="todo in todos" :key="todo.id">
         <td v-if="todo.isEditing">
-          <input v-model="todo.title" type="text" required />
+          <input v-model="todo.title" type="text" required/>
         </td>
         <td v-else>
           {{ todo.title }}
         </td>
         <td v-if="todo.isEditing">
-          <button v-on:click="update(todo)">
+          <button @click="update(todo)">
             更新
           </button>
         </td>
         <td v-else>
-          <button v-on:click="edit(todo)">
+          <button @click="edit(todo)">
             編集
           </button>
         </td>
         <td>
-          <button v-on:click="destroy(todo)">
+          <button @click="destroy(todo)">
             削除
           </button>
         </td>
