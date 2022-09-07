@@ -4,7 +4,7 @@ Vue.createApp({
       todos: []
     }
   },
-  created: function () {
+  created () {
     this.$_all()
   },
 
