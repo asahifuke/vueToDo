@@ -8,30 +8,28 @@
 </head>
 <body>
   <div id="app">
-    <input v-model="title" type="text" required>
-    <input @click="create" type="submit" value="追加">
-    <table>      
+    <form @submit.prevent="create">
+      <input type="submit" value="追加">
+      <input id="create-form" v-model="title" type="text" required/>
+    </form>
+    <table> 
       <tr v-for="todo in todos" :key="todo.id">
-        <td v-if="todo.isEditing">
-          <input v-model="todo.title" type="text" required/>
-        </td>
-        <td v-else>
-          {{ todo.title }}
-        </td>
-        <td v-if="todo.isEditing">
-          <button @click="update(todo)">
-            更新
+        <td>
+          <button @click="destroy(todo)">
+            削除
           </button>
+        </td>
+        <td v-if="todo.isEditing">
+          <form @submit.prevent="update(todo)">
+            <input type="submit" value="更新">
+            <input id="edit-form" v-model="todo.title" type="text" required/>
+          </form>
         </td>
         <td v-else>
           <button @click="edit(todo)">
             編集
           </button>
-        </td>
-        <td>
-          <button @click="destroy(todo)">
-            削除
-          </button>
+          {{ todo.title }}
         </td>
       </tr>
     </table>
