@@ -12,13 +12,13 @@
     <input v-on:click="create" type="submit" value="追加">
     <table>      
       <tr v-for="todo in todos" :key="todo.id">
-        <td v-if="isEditing(todo)">
+        <td v-if="todo.isEditing">
           <input v-model="todo.title" type="text" required />
         </td>
 				<td v-else>
           {{ todo.title }}
         </td>
-        <td v-if="isEditing(todo)">
+        <td v-if="todo.isEditing">
           <button v-on:click="update(todo)">
             更新
           </button>

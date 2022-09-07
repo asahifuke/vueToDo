@@ -5,57 +5,70 @@ Vue.createApp({
     }
   },
   created: function () {
-    this.all()
+    this.$_all()
   },
 
   methods: {
-    all () {
-      const todos = []
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i)
-        const todo = JSON.parse(localStorage.getItem(key))
-        todo.id = key
-        todos.push(todo)
-      }
-      this.todos = todos
-    },
-
-    $_find (todo) {
-      return JSON.parse(localStorage.getItem(todo.id))
-    },
-
     create () {
-      const todo = {
-        title: this.title,
-        isEditing: false
-      }
-      localStorage.setItem(Date.now().toString(36) + Math.random().toString(36), JSON.stringify(todo))
+      this.$_createTodo()
+      this.$_save()
       this.title = ''
-      this.all()
+      this.$_all()
     },
 
     edit (todo) {
-      const editingTodo = this.$_find(todo)
-      editingTodo.isEditing = true
-      localStorage.setItem(todo.id, JSON.stringify(editingTodo))
-      this.all()
+      this.$_changeIsEditings(todo)
+      this.$_save()
+      this.$_all()
     },
 
     update (todo) {
-      const editingTodo = this.$_find(todo)
-      editingTodo.isEditing = false
-      editingTodo.title = todo.title
-      localStorage.setItem(todo.id, JSON.stringify(editingTodo))
-      this.all()
+      this.$_changeIsEditings(todo)
+      this.$_save()
+      this.$_all()
     },
 
     destroy (todo) {
-      localStorage.removeItem(todo.id)
-      this.all()
+      this.$_filterTodo(todo)
+      this.$_save()
+      this.$_all()
     },
 
-    isEditing (todo) {
-      return todo.isEditing
+    $_all () {
+      this.todos = JSON.parse(localStorage.getItem('todos'))
+    },
+
+    $_filterTodo (todo) {
+      this.todos = this.todos.filter(nowTodo => {
+        return this.$_isTodoNotClicked(nowTodo, todo)
+      })
+    },
+
+    $_isTodoNotClicked (nowTodo, todo) {
+      return nowTodo.id !== todo.id
+    },
+
+    $_changeIsEditings (todo) {
+      return this.todos.map(nowTodo => this.$_changeIsEditing(nowTodo, todo))
+    },
+
+    $_changeIsEditing (nowTodo, todo) {
+      if (!this.$_isTodoNotClicked(nowTodo, todo)) {
+        nowTodo.isEditing = !nowTodo.isEditing
+      }
+      return nowTodo
+    },
+
+    $_save () {
+      localStorage.setItem('todos', JSON.stringify(this.todos))
+    },
+
+    $_createTodo () {
+      this.todos.push({
+        id: Date.now().toString(36) + Math.random().toString(36),
+        title: this.title,
+        isEditing: false
+      })
     }
   }
 }).mount('#app')
