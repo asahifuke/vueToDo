@@ -5,6 +5,9 @@ Vue.createApp({
     }
   },
   created () {
+    if (!this.$_getTodos()) {
+      localStorage.setItem('todos', JSON.stringify([]))
+    }
     this.$_getTodos()
   },
 
@@ -13,29 +16,26 @@ Vue.createApp({
       this.$_createTodo()
       this.$_save()
       this.title = ''
-      this.$_getTodos()
     },
 
     edit (todo) {
-      this.$_changeIsEditings(todo)
+      this.$_changeIsEditing(todo)
       this.$_save()
-      this.$_getTodos()
     },
 
     update (todo) {
-      this.$_changeIsEditings(todo)
+      this.$_changeIsEditing(todo)
       this.$_save()
-      this.$_getTodos()
     },
 
     destroy (todo) {
       this.$_filterTodo(todo)
       this.$_save()
-      this.$_getTodos()
     },
 
     $_getTodos () {
       this.todos = JSON.parse(localStorage.getItem('todos'))
+      return this.todos
     },
 
     $_filterTodo (todo) {
@@ -48,15 +48,9 @@ Vue.createApp({
       return nowTodo.id !== todo.id
     },
 
-    $_changeIsEditings (todo) {
-      return this.todos.map(nowTodo => this.$_changeIsEditing(nowTodo, todo))
-    },
-
-    $_changeIsEditing (nowTodo, todo) {
-      if (!this.$_isTodoNotClicked(nowTodo, todo)) {
-        nowTodo.isEditing = !nowTodo.isEditing
-      }
-      return nowTodo
+    $_changeIsEditing (todo) {
+      const index = this.todos.findIndex(nowTodo => nowTodo === todo)
+      this.todos[index].isEditing = !todo.isEditing
     },
 
     $_save () {
