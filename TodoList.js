@@ -13,7 +13,11 @@ Vue.createApp({
 
   methods: {
     create () {
-      this.$_createTodo()
+      this.todos.push({
+        id: Date.now().toString(36) + Math.random().toString(36),
+        title: this.title,
+        isEditing: false
+      })
       this.$_save()
       this.title = ''
     },
@@ -55,14 +59,6 @@ Vue.createApp({
 
     $_save () {
       localStorage.setItem('todos', JSON.stringify(this.todos))
-    },
-
-    $_createTodo () {
-      this.todos.push({
-        id: Date.now().toString(36) + Math.random().toString(36),
-        title: this.title,
-        isEditing: false
-      })
     }
   }
 }).mount('#app')
