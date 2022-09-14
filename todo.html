@@ -20,13 +20,13 @@
           </button>
         </td>
         <td v-if="todo.isEditing">
-          <form @submit.prevent="update(todo)">
+          <form @submit.prevent="toggleUpdateButton(todo)">
             <input type="submit" value="更新">
             <input id="edit-form" v-model="todo.title" type="text" required/>
           </form>
         </td>
         <td v-else>
-          <button @click="edit(todo)">
+          <button @click="toggleUpdateButton(todo)">
             編集
           </button>
           {{ todo.title }}

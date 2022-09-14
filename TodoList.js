@@ -4,11 +4,11 @@ Vue.createApp({
       todos: []
     }
   },
+
   created () {
-    if (!this.$_getTodos()) {
-      localStorage.setItem('todos', JSON.stringify([]))
+    if (this.$_getTodos()) {
+      this.todos = this.$_getTodos()
     }
-    this.$_getTodos()
   },
 
   methods: {
@@ -22,12 +22,7 @@ Vue.createApp({
       this.title = ''
     },
 
-    edit (todo) {
-      this.$_changeIsEditing(todo)
-      this.$_save()
-    },
-
-    update (todo) {
+    toggleUpdateButton (todo) {
       this.$_changeIsEditing(todo)
       this.$_save()
     },
@@ -38,8 +33,7 @@ Vue.createApp({
     },
 
     $_getTodos () {
-      this.todos = JSON.parse(localStorage.getItem('todos'))
-      return this.todos
+      return JSON.parse(localStorage.getItem('todos'))
     },
 
     $_filterTodo (todo) {
@@ -53,8 +47,7 @@ Vue.createApp({
     },
 
     $_changeIsEditing (todo) {
-      const index = this.todos.findIndex(nowTodo => nowTodo === todo)
-      this.todos[index].isEditing = !todo.isEditing
+      todo.isEditing = !todo.isEditing
     },
 
     $_save () {
