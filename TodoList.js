@@ -28,9 +28,7 @@ Vue.createApp({
     },
 
     destroy (todo) {
-      this.todos = this.todos.filter(nowTodo => {
-        return nowTodo.id !== todo.id
-      })
+      this.todos = this.todos.filter(nowTodo => nowTodo.id !== todo.id)
       this.$_save()
     },
 
