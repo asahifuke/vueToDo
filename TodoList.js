@@ -23,31 +23,19 @@ Vue.createApp({
     },
 
     toggleUpdateButton (todo) {
-      this.$_changeIsEditing(todo)
+      todo.isEditing = !todo.isEditing
       this.$_save()
     },
 
     destroy (todo) {
-      this.$_filterTodo(todo)
+      this.todos = this.todos.filter(nowTodo => {
+        return nowTodo.id !== todo.id
+      })
       this.$_save()
     },
 
     $_getTodos () {
       return JSON.parse(localStorage.getItem('todos'))
-    },
-
-    $_filterTodo (todo) {
-      this.todos = this.todos.filter(nowTodo => {
-        return this.$_isTodoNotClicked(nowTodo, todo)
-      })
-    },
-
-    $_isTodoNotClicked (nowTodo, todo) {
-      return nowTodo.id !== todo.id
-    },
-
-    $_changeIsEditing (todo) {
-      todo.isEditing = !todo.isEditing
     },
 
     $_save () {
