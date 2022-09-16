@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TodoList</title>
+</head>
+<body>
+  <div id="app">
+    <form @submit.prevent="create">
+      <input type="submit" value="追加">
+      <input id="create-form" v-model="title" type="text" required/>
+    </form>
+    <table> 
+      <tr v-for="todo in todos" :key="todo.id">
+        <td>
+          <button @click="destroy(todo)">
+            削除
+          </button>
+        </td>
+        <td v-if="todo.isEditing">
+          <form @submit.prevent="toggleUpdateButton(todo)">
+            <input type="submit" value="更新">
+            <input id="edit-form" v-model="todo.title" type="text" required/>
+          </form>
+        </td>
+        <td v-else>
+          <button @click="toggleUpdateButton(todo)">
+            編集
+          </button>
+          {{ todo.title }}
+        </td>
+      </tr>
+    </table>
+  </div>
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="TodoList.js"></script>
+</body>
+</html>
